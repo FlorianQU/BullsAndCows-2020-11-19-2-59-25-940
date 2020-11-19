@@ -21,7 +21,7 @@ namespace BullsAndCows
 
         private string Compare(string secret, string guess)
         {
-            return secret == guess ? "4A0B" : string.Empty;
+            return secret == guess ? "4A0B" : "0A0B";
         }
     }
 }
