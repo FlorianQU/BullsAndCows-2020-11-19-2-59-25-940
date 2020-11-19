@@ -1,5 +1,6 @@
 ﻿using System;
 using BullsAndCows;
+using static System.String;
 
 namespace BullsAndCowsRunner
 {
@@ -9,11 +10,16 @@ namespace BullsAndCowsRunner
         {
             SecretGenerator secretGenerator = new SecretGenerator();
             BullsAndCowsGame game = new BullsAndCowsGame(secretGenerator);
+            InputCheck inputCheck = new InputCheck();
             while (game.CanContinue)
             {
                 var input = Console.ReadLine();
-                var output = game.Guess(input);
-                Console.WriteLine(output);
+                input = inputCheck.CheckInput(input);
+                if (!IsNullOrEmpty(input))
+                {
+                    var output = game.Guess(input);
+                    Console.WriteLine(output);
+                }
             }
 
             Console.WriteLine("Game Over");

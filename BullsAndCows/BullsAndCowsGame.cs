@@ -7,13 +7,14 @@ namespace BullsAndCows
     {
         private readonly SecretGenerator secretGenerator;
         private readonly string secret = string.Empty;
+        private int chances = 6;
         public BullsAndCowsGame(SecretGenerator secretGenerator)
         {
             this.secretGenerator = secretGenerator;
             this.secret = secretGenerator.GenerateSecret();
         }
 
-        public bool CanContinue => true;
+        public bool CanContinue => this.chances > 0;
 
         public string Guess(string guess)
         {
@@ -23,22 +24,21 @@ namespace BullsAndCows
 
         private string Compare(string secret, string guess)
         {
-            if (secret == guess)
-            {
-                return "4A0B";
-            }
-
             // exchange guess with secret in Contains
             var numberOfExisting = guess.Where(secret.Contains).ToList().Count;
             var numberOfMatch = secret.Where((charElement, index) => charElement == guess[index]).ToList().Count;
-
-            return $"{numberOfMatch}A{numberOfExisting - numberOfMatch}B";
-            //if (secret.Where(guess.Contains).ToList().Count == 4)
+            //if (numberOfMatch == 4)
             //{
-            //    return "0A4B";
+            //    this.chances = 0;
+            //}
+            //else
+            //{
+            //    this.chances -= 1;
             //}
 
-            //return "0A0B";
+            this.chances -= numberOfMatch == 4 ? this.chances : 1;
+
+            return $"{numberOfMatch}A{numberOfExisting - numberOfMatch}B";
         }
     }
 }
