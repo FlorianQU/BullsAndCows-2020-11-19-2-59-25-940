@@ -28,12 +28,17 @@ namespace BullsAndCows
                 return "4A0B";
             }
 
-            if (secret.Where(secretChar => guess.Contains(secretChar)).ToList().Count == 4)
-            {
-                return "0A4B";
-            }
+            // exchange guess with secret in Contains
+            var numberOfExisting = guess.Where(secret.Contains).ToList().Count;
+            var numberOfMatch = secret.Where((charElement, index) => charElement == guess[index]).ToList().Count;
 
-            return "0A0B";
+            return $"{numberOfMatch}A{numberOfExisting - numberOfMatch}B";
+            //if (secret.Where(guess.Contains).ToList().Count == 4)
+            //{
+            //    return "0A4B";
+            //}
+
+            //return "0A0B";
         }
     }
 }
