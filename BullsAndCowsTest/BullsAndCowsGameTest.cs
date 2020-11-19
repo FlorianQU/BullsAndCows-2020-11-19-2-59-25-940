@@ -46,9 +46,9 @@ namespace BullsAndCowsTest
             var testSecretGenerator = new TestSecretGenerator();
             var game = new BullsAndCowsGame(testSecretGenerator);
             //when
-            string answer = game.Guess("1 2 3 4");
+            string answer = game.Guess("4 3 2 1");
             //then
-            Assert.Equal("4A0B", answer);
+            Assert.Equal("0A4B", answer);
         }
 
         public class TestSecretGenerator : SecretGenerator
